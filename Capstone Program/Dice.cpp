@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void Dice::rollDice() {
+void Dice::RollDice() {
 
 	//Reset Dice
 	this -> SetbgColor(defaultColor);
@@ -23,7 +23,7 @@ void Dice::rollDice() {
 	landedSide = dist(gen);
 }
 
-int Dice::getLandedSide()
+int Dice::GetLandedSide()
 {
 	return landedSide;
 }
@@ -34,7 +34,7 @@ Dice::Dice(int side) {
 	landedSide = 0;
 };
 
-void Dice::changeSideNumber(int side) {
+void Dice::ChangeSideNumber(int side) {
 	numberSide = side;
 	landedSide = 0;
 };
@@ -55,17 +55,31 @@ DisplayColor::Color Dice::GetbgColor() const
 }
 
 
+ DisplayColor::Color Dice::PickSetNextBgMatchColor(int count) const {
+	 DisplayColor::Color nextBgColor = bgMatchColor[count%bgMatchColor.size()];
+	 this->SetbgColor(nextBgColor);	 
+	return nextBgColor;
+}
+
+
 inline void CheckMatches(const DiceVector& dice)
-{
+{	 
+	int matchCounter = 0;
 	for (int i = 0; i < dice.size(); i++)
 	{		
 		if (dice[i].GetbgColor() == dice[i].defaultColor) {
+			int perDieMatchCount = 0;
 			for (size_t j = i+1; j < dice.size(); j++)
 			{
 				if (dice[i] == dice[j]) {
-					
-					dice[i].SetbgColor(DisplayColor::Color::BLUE);
-					dice[j].SetbgColor(DisplayColor::Color::BLUE);
+					if (perDieMatchCount == 0)
+					{
+						dice[i].PickSetNextBgMatchColor(matchCounter);
+						matchCounter++;
+					}
+
+					perDieMatchCount++;
+					dice[j].SetbgColor(dice[i].GetbgColor());
 				}
 			}
 		}
@@ -76,7 +90,7 @@ inline void CreateDiceDisplayVector(const DiceVector& dice, vector<vector<string
 {
 	for (Dice die : dice)
 	{
-		string displaylandedSide = to_string(die.getLandedSide()).size() == 2 ? to_string(die.getLandedSide()) : " " + to_string(die.getLandedSide()); //adding space if one diget 
+		string displaylandedSide = to_string(die.GetLandedSide()).size() == 2 ? to_string(die.GetLandedSide()) : " " + to_string(die.GetLandedSide()); //adding space if one diget 
 		if (die.isVisable) {
 			vector<string> dieOutput = {
 				"+------+ ",

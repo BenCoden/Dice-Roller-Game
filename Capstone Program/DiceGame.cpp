@@ -31,14 +31,14 @@ void DiceGame::StartGame()
 	{
 		cout << "Enter the number of dice: ";
 		cin >> numDice;
-	} while (!validateInput(numDice, maxNumberDice));
+	} while (!ValidateInput(numDice, maxNumberDice));
 
 	this->SetDice();
 
 	this->ReadyToRollDice();
 }
 
-bool DiceGame::isGameOver()
+bool DiceGame::IsGameOver()
 {
 	return gameOver;
 }
@@ -53,7 +53,7 @@ void DiceGame::SetDice()
 		{
 			cout << "Enter the number of sides for dice number " << i + 1 << " : ";
 			cin >> numSides;
-		} while (!validateInput(numSides, maxNumberSide));
+		} while (!ValidateInput(numSides, maxNumberSide));
 
 		diceArray.push_back(Dice(numSides));
 	}
@@ -62,7 +62,7 @@ void DiceGame::SetDice()
 void DiceGame::RollingDice()
 {
 	for (int i = 0; i <= diceArray.size() - 1; i++) 
-		diceArray[i].rollDice();
+		diceArray[i].RollDice();
 	
 	cout << diceArray;
 }
@@ -93,7 +93,7 @@ void DiceGame::DropLowestDice()
 	int lowDieSide = 99;
 	if (diceArray.isVisableSize() > 1) {
 		for (int i = 0; i < diceArray.size(); i++) {
-			int currentDieSide = diceArray[i].getLandedSide();
+			int currentDieSide = diceArray[i].GetLandedSide();
 			if (currentDieSide < lowDieSide && diceArray[i].isVisable) {
 				lowDieSide = currentDieSide;
 				indexOfHighestDie = i;
@@ -121,7 +121,7 @@ void DiceGame::DropHeighestDice()
 		int maxDieSide = -1;
 		if (diceArray.isVisableSize() > 1) {
 			for (int i = 0; i < diceArray.size(); i++) {
-				int currentDieSide = diceArray[i].getLandedSide();
+				int currentDieSide = diceArray[i].GetLandedSide();
 				if (currentDieSide > maxDieSide && diceArray[i].isVisable) {
 					maxDieSide = currentDieSide;
 					indexOfHighestDie = i;
@@ -156,7 +156,7 @@ void DiceGame::DisplayDoSelecetShortMenu() {
 		cout << "2. End game" << endl;
 		cout << "Enter your choice: ";
 		cin >> nextMove;
-	} while (!validateInput(nextMove, maxMenuNumber));
+	} while (!ValidateInput(nextMove, maxMenuNumber));
 
 	switch (nextMove)
 	{
@@ -186,7 +186,7 @@ void DiceGame::DisplayMenuSelectNextMove() {
 		cout << "7. End game" << endl;
 		cout << "Enter your choice: ";
 		cin >> nextMove;
-	} while (!validateInput(nextMove, static_cast<size_t>(MenuItems::COUNT)));
+	} while (!ValidateInput(nextMove, static_cast<size_t>(MenuItems::COUNT)));
 
 	SelectedNextMove = static_cast<MenuItems>(nextMove - 1);
 
@@ -207,9 +207,9 @@ void DiceGame::ChangeDiceSide()
 		{
 			cout << "Enter the number to change die " << i + 1 << " : ";
 			cin >> numSides;
-		} while (!validateInput(numSides, maxNumberSide));
+		} while (!ValidateInput(numSides, maxNumberSide));
 
-		diceArray[i].changeSideNumber(numSides);
+		diceArray[i].ChangeSideNumber(numSides);
 	}
 }
 void DiceGame::FindDisplayDiceSum()
@@ -224,7 +224,7 @@ int DiceGame::FindDiceSum()
 	for (int i = 0; i <= diceArray.size() - 1; i++) {
 		if (diceArray[i].isVisable)
 		{
-			sum = sum + diceArray[i].getLandedSide();
+			sum = sum + diceArray[i].GetLandedSide();
 		}
 	}
 	return sum;

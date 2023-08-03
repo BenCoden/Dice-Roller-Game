@@ -4,7 +4,7 @@
 
 using namespace std;
 
-bool GameBase::validateInput(int input, int max) {
+bool GameBase::ValidateInput(int input, int max) {
 
 	if (cin.fail() || !(input > 0 && input < max + 1)) {
 

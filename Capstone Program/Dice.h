@@ -11,6 +11,11 @@ class DiceVector;
 
 class Dice
 {
+	const vector<DisplayColor::Color> bgMatchColor { 
+				DisplayColor::Color::BLUE,
+					DisplayColor::Color::MAGENTA,
+					DisplayColor::Color::YELLOW
+	};
 	mutable  DisplayColor::Color bgColor = defaultColor;
 	int numberSide;
 	int landedSide;
@@ -31,10 +36,13 @@ public:
 	Dice(int);
 	void SetbgColor(DisplayColor::Color) const;
 	DisplayColor::Color GetbgColor() const;
-	void rollDice();
-	int getLandedSide();
-	void changeSideNumber(int);
+	DisplayColor::Color PickSetNextBgMatchColor(int) const;
+	void RollDice();
+	int GetLandedSide();
+	void ChangeSideNumber(int);
 };
+
+void CheckMatches(const DiceVector& dice);
 
 ostream& operator<<(ostream& os, const DiceVector& dice);
 
@@ -42,9 +50,6 @@ ostream& operator<<(ostream& os, const DiceVector& dice);
 class DiceVector : public std::vector<Dice>
 {
 public:
-
-
-
 	int isVisableSize() const
 	{
 		int count = 0;

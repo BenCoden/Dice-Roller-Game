@@ -38,6 +38,6 @@ public:
 	DiceGame(DiceVector&);
 	void DisplayMenuSelectNextMove();
 	void StartGame();
-	bool isGameOver();
+	bool IsGameOver();
 };
 

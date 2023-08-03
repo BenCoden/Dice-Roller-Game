@@ -13,7 +13,7 @@ int main() {
 
 	gameBoard.StartGame();
 
-	while (!gameBoard.isGameOver()) {
+	while (!gameBoard.IsGameOver()) {
 	
 		gameBoard.DisplayMenuSelectNextMove();
 	

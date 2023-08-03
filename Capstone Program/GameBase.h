@@ -4,9 +4,9 @@ class GameBase
 
 public:
 protected:
-	bool validateInput(int , int );
+	bool ValidateInput(int , int );
 	bool gameOver = false;
-virtual bool isGameOver() = 0;
+virtual bool IsGameOver() = 0;
 
 };
 
